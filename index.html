@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ĐỀ KIỂM TRA CHƯƠNG 4: POLYMER VÀ VẬT LIỆU POLYMER (ĐẦY ĐỦ 100%)</title>
+  <!-- KaTeX hỗ trợ hiển thị công thức LaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+          onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
+    :root {
+      --primary: #1565c0;
+      --primary-dark: #0d47a1;
+      --bg-color: #f4f6f9;
+      --card-bg: #ffffff;
+      --border-color: #cfd8dc;
+      --success: #2e7d32;
+      --danger: #c62828;
+    }
+    body {
+      background-color: var(--bg-color);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 13pt; /* Cỡ chữ 13 chuẩn theo yêu cầu */
+      line-height: 1.6;
+      color: #212529;
+      margin: 0;
+      padding: 15px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    h1 {
+      text-align: center;
+      color: var(--primary-dark);
+      font-size: 1.6rem;
+      margin-bottom: 25px;
+      text-transform: uppercase;
+    }
+    .student-info {
+      background: #e3f2fd;
+      padding: 15px 20px;
+      border-radius: 8px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 25px;
+      border: 1px solid #90caf9;
+    }
+    .input-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: var(--primary-dark);
+    }
+    .input-group input {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 13pt;
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      box-sizing: border-box;
+      outline: none;
+    }
+    .input-group input:focus {
+      border-color: var(--primary);
+    }
+    .lesson-header {
+      background: #0d47a1;
+      color: #ffffff;
+      padding: 12px 18px;
+      font-size: 1.25rem;
+      font-weight: bold;
+      border-radius: 6px;
+      margin-top: 40px;
+      margin-bottom: 15px;
+    }
+    .part-header {
+      background: #e8eaf6;
+      color: #1a237e;
+      padding: 8px 14px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-left: 5px solid #3f51b5;
+      margin-top: 20px;
+      margin-bottom: 15px;
+      border-radius: 0 4px 4px 0;
+    }
+    .sub-level-header {
+      color: #0d47a1;
+      font-weight: bold;
+      margin: 15px 0 10px 0;
+      font-size: 1.05rem;
+    }
+    .question-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin-bottom: 15px;
+      transition: all 0.2s ease;
+    }
+    .question-card.missing {
+      border: 2px solid var(--danger) !important;
+      background-color: #ffebee !important;
+    }
+    .q-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .opt-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 4px;
+      background: #fafafa;
+      border: 1px solid #eee;
+    }
+    .opt-label:hover {
+      background: #e1f5fe;
+    }
+    .tf-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    .tf-table th, .tf-table td {
+      border: 1px solid var(--border-color);
+      padding: 6px 10px;
+      text-align: center;
+    }
+    .tf-table td:nth-child(2) {
+      text-align: left;
+    }
+    .short-input {
+      width: 100%;
+      padding: 8px 12px;
+      font-size: 13pt;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-top: 6px;
+    }
+    .action-container {
+      text-align: center;
+      margin-top: 35px;
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 12px 26px;
+      font-size: 13pt;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-submit {
+      background: #1976d2;
+      color: #fff;
+    }
+    .btn-submit:hover {
+      background: #0d47a1;
+    }
+    .btn-export {
+      background: #2e7d32;
+      color: #fff;
+      display: none;
+    }
+    .btn-export:hover {
+      background: #1b5e20;
+    }
+    .btn-detail {
+      background: #455a64;
+      color: #fff;
+      display: none;
+    }
+    .btn-detail:hover {
+      background: #263238;
+    }
+    .result-box {
+      display: none;
+      background: #e8f5e9;
+      border: 2px solid var(--success);
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      margin-top: 25px;
+    }
+    .detail-section {
+      display: none;
+      margin-top: 30px;
+      border-top: 2px dashed #78909c;
+      padding-top: 20px;
+    }
+    .key-box {
+      background: #fff9c4;
+      border: 1px solid #fbc02d;
+      padding: 15px 20px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+    .alert-msg {
+      color: var(--danger);
+      text-align: center;
+      font-weight: bold;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>ĐỀ KIỂM TRA CHƯƠNG 4: POLYMER VÀ VẬT LIỆU POLYMER</h1>
+
+  <!-- Phần nhập thông tin học sinh -->
+  <div class="student-info">
+    <div class="input-group">
+      <label for="student-name">Họ tên học sinh:</label>
+      <input type="text" id="student-name" placeholder="Nguyễn Văn A" required>
+    </div>
+    <div class="input-group">
+      <label for="student-class">Lớp:</label>
+      <input type="text" id="student-class" placeholder="12A1" required>
+    </div>
+    <div class="input-group">
+      <label for="student-stt">Stt:</label>
+      <input type="number" id="student-stt" placeholder="01" min="1" required>
+    </div>
+  </div>
+
+  <form id="quizForm">
+    <!-- ========================================================
+         BÀI 12: ĐẠI CƯƠNG VỀ POLYMER
+         ======================================================== -->
+    <div class="lesson-header">PHIẾU BÀI TẬP BÀI 12: ĐẠI CƯƠNG VỀ POLYMER</div>
+    
+    <div class="part-header">PHẦN 1: TRẮC NGHIỆM 4 LỰA CHỌN (20 CÂU)</div>
+
+    <div class="sub-level-header">A. Mức độ Nhận biết (8 câu: Câu 1 đến Câu 8)</div>
+
+    <div class="question-card" id="card_b12_p1_c1">
+      <div class="q-title"><strong>Câu 1</strong> [NB]: Polymer là những hợp chất có đặc điểm nào sau đây?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b12_p1_c1" value="A" onchange="playBriskSound()"> <strong>A.</strong> Có phân tử khối nhỏ và cấu trúc đơn giản.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c1" value="B" onchange="playBriskSound()"> <strong>B.</strong> Có phân tử khối rất lớn do nhiều đơn vị nhỏ (mắt xích) liên kết với nhau tạo nên.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c1" value="C" onchange="playBriskSound()"> <strong>C.</strong> Luôn tan tốt trong nước ở điều kiện thường.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c1" value="D" onchange="playBriskSound()"> <strong>D.</strong> Có nhiệt độ nóng chảy cố định và xác định.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b12_p1_c2">
+      <div class="q-title"><strong>Câu 2</strong> [NB]: Các phân tử nhỏ phản ứng với nhau để tạo thành polymer được gọi là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b12_p1_c2" value="A" onchange="playBriskSound()"> <strong>A.</strong> Mắt xích.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c2" value="B" onchange="playBriskSound()"> <strong>B.</strong> Monomer.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c2" value="C" onchange="playBriskSound()"> <strong>C.</strong> Chất dẻo.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c2" value="D" onchange="playBriskSound()"> <strong>D.</strong> Cốt hạt.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b12_p1_c3">
+      <div class="q-title"><strong>Câu 3</strong> [NB]: Công thức cấu tạo của Polyethylene (PE) là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b12_p1_c3" value="A" onchange="playBriskSound()"> <strong>A.</strong> $[\text{CH}_2-\text{CH}_2]_n$.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c3" value="B" onchange="playBriskSound()"> <strong>B.</strong> $[\text{CH}_2-\text{CH(Cl)}]_n$.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c3" value="C" onchange="playBriskSound()"> <strong>C.</strong> $[\text{CH}_2-\text{CH}(\text{C}_6\text{H}_5)]_n$.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c3" value="D" onchange="playBriskSound()"> <strong>D.</strong> $[\text{NH}-[\text{CH}_2]_5-\text{CO}]_n$.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b12_p1_c4">
+      <div class="q-title"><strong>Câu 4</strong> [NB]: Polymer nào sau đây có tính chất đặc trưng là tính đàn hồi?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b12_p1_c4" value="A" onchange="playBriskSound()"> <strong>A.</strong> Polyethylene (PE).</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c4" value="B" onchange="playBriskSound()"> <strong>B.</strong> Polyisoprene.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c4" value="C" onchange="playBriskSound()"> <strong>C.</strong> Capron.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c4" value="D" onchange="playBriskSound()"> <strong>D.</strong> Poly(vinyl chloride).</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b12_p1_c5">
+      <div class="q-title"><strong>Câu 5</strong> [NB]: Polymer bị nóng chảy khi đun nóng được gọi là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b12_p1_c5" value="A" onchange="playBriskSound()"> <strong>A.</strong> Polymer nhiệt rắn.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c5" value="B" onchange="playBriskSound()"> <strong>B.</strong> Polymer nhiệt dẻo.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c5" value="C" onchange="playBriskSound()"> <strong>C.</strong> Polymer bán dẫn.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c5" value="D" onchange="playBriskSound()"> <strong>D.</strong> Polymer mạng không gian.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b12_p1_c6">
+      <div class="q-title"><strong>Câu 6</strong> [NB]: Trong phản ứng lưu hóa cao su, các mạch polymer được nối với nhau bằng loại cầu nối nào?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b12_p1_c6" value="A" onchange="playBriskSound()"> <strong>A.</strong> Cầu nối ester.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c6" value="B" onchange="playBriskSound()"> <strong>B.</strong> Cầu nối disulfide (-S-S-).</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c6" value="C" onchange="playBriskSound()"> <strong>C.</strong> Cầu nối peptide.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c6" value="D" onchange="playBriskSound()"> <strong>D.</strong> Cầu nối glycoside.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b12_p1_c7">
+      <div class="q-title"><strong>Câu 7</strong> [NB]: Điều kiện về mặt cấu tạo của monomer để tham gia phản ứng trùng hợp là thường phải có:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b12_p1_c7" value="A" onchange="playBriskSound()"> <strong>A.</strong> Nhóm carboxyl (-COOH).</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c7" value="B" onchange="playBriskSound()"> <strong>B.</strong> Liên kết đôi hoặc vòng kém bền.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c7" value="C" onchange="playBriskSound()"> <strong>C.</strong> Hai nhóm hydroxyl (-OH).</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c7" value="D" onchange="playBriskSound()"> <strong>D.</strong> Vòng benzene bền vững.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b12_p1_c8">
+      <div class="q-title"><strong>Câu 8</strong> [NB]: Phản ứng tổng hợp Nylon-6,6 từ adipic acid và hexamethylenediamine thuộc loại phản ứng nào?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b12_p1_c8" value="A" onchange="playBriskSound()"> <strong>A.</strong> Phản ứng trùng hợp.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c8" value="B" onchange="playBriskSound()"> <strong>B.</strong> Phản ứng trùng ngưng.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c8" value="C" onchange="playBriskSound()"> <strong>C.</strong> Phản ứng cắt mạch polymer.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c8" value="D" onchange="playBriskSound()"> <strong>D.</strong> Phản ứng xà phòng hóa.</label>
+      </div>
+    </div>
+
+    <div class="sub-level-header">B. Mức độ Thông hiểu (6 câu: Câu 9 đến Câu 14)</div>
+
+    <div class="question-card" id="card_b12_p1_c9">
+      <div class="q-title"><strong>Câu 9</strong> [TH]: Khi đun nóng polystyrene ở nhiệt độ cao, thu được monomer ban đầu là styrene. Phản ứng này thuộc loại:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b12_p1_c9" value="A" onchange="playBriskSound()"> <strong>A.</strong> Phản ứng tăng mạch polymer.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c9" value="B" onchange="playBriskSound()"> <strong>B.</strong> Phản ứng cắt mạch polymer.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c9" value="C" onchange="playBriskSound()"> <strong>C.</strong> Phản ứng giữ nguyên mạch polymer.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c9" value="D" onchange="playBriskSound()"> <strong>D.</strong> Phản ứng trùng ngưng.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b12_p1_c10">
+      <div class="q-title"><strong>Câu 10</strong> [TH]: Cho phản ứng: $\text{Poly(vinyl acetate)} + \text{NaOH} \rightarrow \text{Poly(vinyl alcohol)} + \text{CH}_3\text{COONa}$. Phản ứng này thuộc loại nào?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b12_p1_c10" value="A" onchange="playBriskSound()"> <strong>A.</strong> Phản ứng cắt mạch polymer.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c10" value="B" onchange="playBriskSound()"> <strong>B.</strong> Phản ứng giữ nguyên mạch polymer.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c10" value="C" onchange="playBriskSound()"> <strong>C.</strong> Phản ứng tăng mạch polymer.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c10" value="D" onchange="playBriskSound()"> <strong>D.</strong> Phản ứng trùng ngưng.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b12_p1_c11">
+      <div class="q-title"><strong>Câu 11</strong> [TH]: Phát biểu nào sau đây đúng về tính chất vật lí chung của polymer?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b12_p1_c11" value="A" onchange="playBriskSound()"> <strong>A.</strong> Hầu hết polymer là chất lỏng, dễ bay hơi ở nhiệt độ phòng.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c11" value="B" onchange="playBriskSound()"> <strong>B.</strong> Hầu hết polymer là chất rắn, không bay hơi, nóng chảy ở một khoảng nhiệt độ khá rộng.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c11" value="C" onchange="playBriskSound()"> <strong>C.</strong> Mọi polymer đều tan tốt trong nước ở nhiệt độ thường.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c11" value="D" onchange="playBriskSound()"> <strong>D.</strong> Tất cả các polymer đều dẫn điện tốt.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b12_p1_c12">
+      <div class="q-title"><strong>Câu 12</strong> [TH]: Chất nào sau đây không có khả năng tham gia phản ứng trùng hợp?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b12_p1_c12" value="A" onchange="playBriskSound()"> <strong>A.</strong> Ethylene ($\text{CH}_2=\text{CH}_2$).</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c12" value="B" onchange="playBriskSound()"> <strong>B.</strong> Vinyl chloride ($\text{CH}_2=\text{CH-Cl}$).</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c12" value="C" onchange="playBriskSound()"> <strong>C.</strong> Ethane ($\text{CH}_3-\text{CH}_3$).</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c12" value="D" onchange="playBriskSound()"> <strong>D.</strong> Styrene ($\text{CH}_2=\text{CH-C}_6\text{H}_5$).</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b12_p1_c13">
+      <div class="q-title"><strong>Câu 13</strong> [TH]: Polymer nào sau đây thuộc loại polyamide và được điều chế bằng phản ứng trùng ngưng?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b12_p1_c13" value="A" onchange="playBriskSound()"> <strong>A.</strong> Polyethylene.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c13" value="B" onchange="playBriskSound()"> <strong>B.</strong> Nylon-6,6.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c13" value="C" onchange="playBriskSound()"> <strong>C.</strong> Polystyrene.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c13" value="D" onchange="playBriskSound()"> <strong>D.</strong> Polybuta-1,3-diene.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b12_p1_c14">
+      <div class="q-title"><strong>Câu 14</strong> [TH]: Điểm khác biệt cốt lõi giữa phản ứng trùng ngưng và phản ứng trùng hợp là phản ứng trùng ngưng:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b12_p1_c14" value="A" onchange="playBriskSound()"> <strong>A.</strong> Không làm thay đổi khối lượng phân tử.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c14" value="B" onchange="playBriskSound()"> <strong>B.</strong> Có sự giải phóng các phân tử nhỏ khác (như nước).</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c14" value="C" onchange="playBriskSound()"> <strong>C.</strong> Yêu cầu monomer phải chứa liên kết đôi.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c14" value="D" onchange="playBriskSound()"> <strong>D.</strong> Chỉ tạo ra sản phẩm là chất dẻo.</label>
+      </div>
+    </div>
+
+    <div class="sub-level-header">C. Mức độ Vận dụng (4 câu: Câu 15 đến Câu 18)</div>
+
+    <div class="question-card" id="card_b12_p1_c15">
+      <div class="q-title"><strong>Câu 15</strong> [VD]: Cho các polymer: PE, PVC, capron, nylon-6,6. Nhóm các polymer có đặc tính dai, bền, dễ kéo sợi là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b12_p1_c15" value="A" onchange="playBriskSound()"> <strong>A.</strong> PE và PVC.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c15" value="B" onchange="playBriskSound()"> <strong>B.</strong> Capron và nylon-6,6.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c15" value="C" onchange="playBriskSound()"> <strong>C.</strong> PE và capron.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c15" value="D" onchange="playBriskSound()"> <strong>D.</strong> PVC và nylon-6,6.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b12_p1_c16">
+      <div class="q-title"><strong>Câu 16</strong> [VD]: Mắt xích của polymer thu được khi trùng hợp propylene ($\text{CH}_2=\text{CH}-\text{CH}_3$) là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b12_p1_c16" value="A" onchange="playBriskSound()"> <strong>A.</strong> $[\text{CH}_2-\text{CH}_2]$.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c16" value="B" onchange="playBriskSound()"> <strong>B.</strong> $[\text{CH}_2-\text{CH}(\text{CH}_3)]$.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c16" value="C" onchange="playBriskSound()"> <strong>C.</strong> $[\text{CH}_2-\text{CH(Cl)}]$.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c16" value="D" onchange="playBriskSound()"> <strong>D.</strong> $[\text{CH}_2-\text{CH}=\text{CH}-\text{CH}_2]$.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b12_p1_c17">
+      <div class="q-title"><strong>Câu 17</strong> [VD]: Thủy phân hoàn toàn tinh bột hoặc cellulose thu được monomer là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b12_p1_c17" value="A" onchange="playBriskSound()"> <strong>A.</strong> Fructose.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c17" value="B" onchange="playBriskSound()"> <strong>B.</strong> Glucose.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c17" value="C" onchange="playBriskSound()"> <strong>C.</strong> Amino acid.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c17" value="D" onchange="playBriskSound()"> <strong>D.</strong> Glycerol.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b12_p1_c18">
+      <div class="q-title"><strong>Câu 18</strong> [VD]: Monomer được dùng để tổng hợp Poly(vinyl chloride) (PVC) có tên gọi và công thức là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b12_p1_c18" value="A" onchange="playBriskSound()"> <strong>A.</strong> Ethylene ($\text{CH}_2=\text{CH}_2$).</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c18" value="B" onchange="playBriskSound()"> <strong>B.</strong> Vinyl chloride ($\text{CH}_2=\text{CH-Cl}$).</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c18" value="C" onchange="playBriskSound()"> <strong>C.</strong> Styrene ($\text{CH}_2=\text{CH-C}_6\text{H}_5$).</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c18" value="D" onchange="playBriskSound()"> <strong>D.</strong> Propylene ($\text{CH}_2=\text{CH-CH}_3$).</label>
+      </div>
+    </div>
+
+    <div class="sub-level-header">D. Mức độ Vận dụng cao (2 câu: Câu 19 đến Câu 20)</div>
+
+    <div class="question-card" id="card_b12_p1_c19">
+      <div class="q-title"><strong>Câu 19</strong> [VDC]: Trùng hợp $n$ mol monomer vinyl chloride ($M = 62,5\text{ g/mol}$) thu được một đoạn mạch PVC có phân tử khối bằng $125.000\text{ amu}$. Số mắt xích ($n$) trong đoạn mạch PVC này là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b12_p1_c19" value="A" onchange="playBriskSound()"> <strong>A.</strong> 1000.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c19" value="B" onchange="playBriskSound()"> <strong>B.</strong> 2000.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c19" value="C" onchange="playBriskSound()"> <strong>C.</strong> 1500.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c19" value="D" onchange="playBriskSound()"> <strong>D.</strong> 2500.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b12_p1_c20">
+      <div class="q-title"><strong>Câu 20</strong> [VDC]: Tiến hành trùng hợp $100\text{ kg}$ ethylene với hiệu suất phản ứng đạt $80\%$. Khối lượng Polyethylene (PE) thu được là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b12_p1_c20" value="A" onchange="playBriskSound()"> <strong>A.</strong> $100\text{ kg}$.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c20" value="B" onchange="playBriskSound()"> <strong>B.</strong> $80\text{ kg}$.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c20" value="C" onchange="playBriskSound()"> <strong>C.</strong> $125\text{ kg}$.</label>
+        <label class="opt-label"><input type="radio" name="b12_p1_c20" value="D" onchange="playBriskSound()"> <strong>D.</strong> $64\text{ kg}$.</label>
+      </div>
+    </div>
+
+    <!-- BÀI 12: ĐÚNG/SAI -->
+    <div class="part-header">PHẦN 2: TRẮC NGHIỆM ĐÚNG/SAI (5 CÂU)</div>
+
+    <div class="question-card" id="card_b12_p2_c1">
+      <div class="q-title"><strong>Câu 1</strong> [NB]: Xét các phát biểu về khái niệm và danh pháp polymer:</div>
+      <table class="tf-table">
+        <tr><th>Ý</th><th>Nội dung</th><th>Đúng</th><th>Sai</th></tr>
+        <tr><td>a</td><td>Polymer là hợp chất có phân tử khối rất lớn gồm nhiều mắt xích liên kết tạo thành.</td>
+          <td><input type="radio" name="b12_p2_c1_a" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b12_p2_c1_a" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>b</td><td>Monomer là đơn vị nhỏ cấu tạo nên polymer.</td>
+          <td><input type="radio" name="b12_p2_c1_b" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b12_p2_c1_b" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>c</td><td>Tên của polymer được đặt theo quy tắc chung: Poly + Tên monomer.</td>
+          <td><input type="radio" name="b12_p2_c1_c" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b12_p2_c1_c" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>d</td><td>Nylon-6,6 là một polymer được tổng hợp từ phản ứng trùng hợp.</td>
+          <td><input type="radio" name="b12_p2_c1_d" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b12_p2_c1_d" value="S" onchange="playBriskSound()"></td></tr>
+      </table>
+    </div>
+
+    <div class="question-card" id="card_b12_p2_c2">
+      <div class="q-title"><strong>Câu 2</strong> [NB]: Xét các đặc tính vật lí của một số polymer:</div>
+      <table class="tf-table">
+        <tr><th>Ý</th><th>Nội dung</th><th>Đúng</th><th>Sai</th></tr>
+        <tr><td>a</td><td>PE và PP có tính dẻo.</td>
+          <td><input type="radio" name="b12_p2_c2_a" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b12_p2_c2_a" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>b</td><td>Polyisoprene và polybuta-1,3-diene có tính đàn hồi.</td>
+          <td><input type="radio" name="b12_p2_c2_b" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b12_p2_c2_b" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>c</td><td>Capron và nylon-6,6 dai, bền, dễ kéo sợi.</td>
+          <td><input type="radio" name="b12_p2_c2_c" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b12_p2_c2_c" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>d</td><td>Mọi polymer đều nóng chảy ở cùng một nhiệt độ xác định.</td>
+          <td><input type="radio" name="b12_p2_c2_d" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b12_p2_c2_d" value="S" onchange="playBriskSound()"></td></tr>
+      </table>
+    </div>
+
+    <div class="question-card" id="card_b12_p2_c3">
+      <div class="q-title"><strong>Câu 3</strong> [TH]: Xét các phản ứng biến đổi mạch polymer:</div>
+      <table class="tf-table">
+        <tr><th>Ý</th><th>Nội dung</th><th>Đúng</th><th>Sai</th></tr>
+        <tr><td>a</td><td>Nhiệt phân polystyrene thu được monomer styrene là phản ứng cắt mạch polymer.</td>
+          <td><input type="radio" name="b12_p2_c3_a" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b12_p2_c3_a" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>b</td><td>Lưu hóa cao su bằng lưu huỳnh tạo ra cầu nối disulfide là phản ứng tăng mạch polymer.</td>
+          <td><input type="radio" name="b12_p2_c3_b" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b12_p2_c3_b" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>c</td><td>Thủy phân poly(vinyl acetate) bằng dung dịch NaOH là phản ứng giữ nguyên mạch.</td>
+          <td><input type="radio" name="b12_p2_c3_c" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b12_p2_c3_c" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>d</td><td>Thủy phân polyamide trong môi trường acid thu được glucose.</td>
+          <td><input type="radio" name="b12_p2_c3_d" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b12_p2_c3_d" value="S" onchange="playBriskSound()"></td></tr>
+      </table>
+    </div>
+
+    <div class="question-card" id="card_b12_p2_c4">
+      <div class="q-title"><strong>Câu 4</strong> [VD]: Xét các điều kiện của phản ứng tổng hợp polymer:</div>
+      <table class="tf-table">
+        <tr><th>Ý</th><th>Nội dung</th><th>Đúng</th><th>Sai</th></tr>
+        <tr><td>a</td><td>Phản ứng trùng hợp yêu cầu monomer có liên kết đôi hoặc vòng kém bền.</td>
+          <td><input type="radio" name="b12_p2_c4_a" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b12_p2_c4_a" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>b</td><td>Phản ứng trùng ngưng yêu cầu monomer có ít nhất hai nhóm chức có khả năng phản ứng.</td>
+          <td><input type="radio" name="b12_p2_c4_b" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b12_p2_c4_b" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>c</td><td>Trùng ngưng adipic acid và hexamethylenediamine thu được tơ nylon-6,6 và nước.</td>
+          <td><input type="radio" name="b12_p2_c4_c" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b12_p2_c4_c" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>d</td><td>Ethane có chứa liên kết đôi nên dễ tham gia phản ứng trùng hợp.</td>
+          <td><input type="radio" name="b12_p2_c4_d" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b12_p2_c4_d" value="S" onchange="playBriskSound()"></td></tr>
+      </table>
+    </div>
+
+    <div class="question-card" id="card_b12_p2_c5">
+      <div class="q-title"><strong>Câu 5</strong> [VDC]: Xét tính chất nhiệt và ứng dụng đặc trưng của polymer:</div>
+      <table class="tf-table">
+        <tr><th>Ý</th><th>Nội dung</th><th>Đúng</th><th>Sai</th></tr>
+        <tr><td>a</td><td>Polymer nhiệt dẻo bị nóng chảy khi đun nóng.</td>
+          <td><input type="radio" name="b12_p2_c5_a" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b12_p2_c5_a" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>b</td><td>Polymer nhiệt rắn bị phân hủy bởi nhiệt chứ không bị nóng chảy.</td>
+          <td><input type="radio" name="b12_p2_c5_b" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b12_p2_c5_b" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>c</td><td>Đun nóng cao su với lưu huỳnh giúp tạo mạng lưới không gian giúp cao su lưu hóa bền hơn.</td>
+          <td><input type="radio" name="b12_p2_c5_c" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b12_p2_c5_c" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>d</td><td>PE và PVC được ứng dụng làm vật liệu cách điện.</td>
+          <td><input type="radio" name="b12_p2_c5_d" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b12_p2_c5_d" value="S" onchange="playBriskSound()"></td></tr>
+      </table>
+    </div>
+
+    <!-- BÀI 12: TRẢ LỜI NGẮN -->
+    <div class="part-header">PHẦN 3: CÂU TRẢ LỜI NGẮN (5 CÂU)</div>
+
+    <div class="question-card" id="card_b12_p3_c1">
+      <div class="q-title"><strong>Câu 1</strong> [NB]: Viết tên gọi chung của hợp chất có phân tử khối rất lớn do nhiều đơn vị mắt xích liên kết với nhau tạo nên.</div>
+      <input type="text" class="short-input" name="b12_p3_c1" placeholder="Nhập câu trả lời..." oninput="playTypingBrisk()">
+    </div>
+
+    <div class="question-card" id="card_b12_p3_c2">
+      <div class="q-title"><strong>Câu 2</strong> [NB]: Viết công thức phân tử của monomer ethylene dùng để điều chế Polyethylene (PE).</div>
+      <input type="text" class="short-input" name="b12_p3_c2" placeholder="Nhập công thức (ví dụ: C2H4 hoặc CH2=CH2)..." oninput="playTypingBrisk()">
+    </div>
+
+    <div class="question-card" id="card_b12_p3_c3">
+      <div class="q-title"><strong>Câu 3</strong> [TH]: Nêu tên loại cầu nối liên kết các mạch polymer với nhau trong quá trình lưu hóa cao su.</div>
+      <input type="text" class="short-input" name="b12_p3_c3" placeholder="Nhập câu trả lời..." oninput="playTypingBrisk()">
+    </div>
+
+    <div class="question-card" id="card_b12_p3_c4">
+      <div class="q-title"><strong>Câu 4</strong> [VD]: Khi thủy phân hoàn toàn tinh bột trong môi trường acid, hợp chất thu được là chất nào?</div>
+      <input type="text" class="short-input" name="b12_p3_c4" placeholder="Nhập câu trả lời..." oninput="playTypingBrisk()">
+    </div>
+
+    <div class="question-card" id="card_b12_p3_c5">
+      <div class="q-title"><strong>Câu 5</strong> [VDC]: Một đoạn mạch Polyethylene có hệ số trùng hợp $n = 5000$. Tính phân tử khối (amu) của đoạn mạch PE này (cho $\text{C}=12$, $\text{H}=1$).</div>
+      <input type="text" class="short-input" name="b12_p3_c5" placeholder="Nhập kết quả..." oninput="playTypingBrisk()">
+    </div>
+
+
+    <!-- ========================================================
+         BÀI 13: VẬT LIỆU POLYMER
+         ======================================================== -->
+    <div class="lesson-header">PHIẾU BÀI TẬP BÀI 13: VẬT LIỆU POLYMER</div>
+    
+    <div class="part-header">PHẦN 1: TRẮC NGHIỆM 4 LỰA CHỌN (20 CÂU)</div>
+
+    <div class="sub-level-header">A. Mức độ Nhận biết (8 câu: Câu 1 đến Câu 8)</div>
+
+    <div class="question-card" id="card_b13_p1_c1">
+      <div class="q-title"><strong>Câu 1</strong> [NB]: Vật liệu polymer có tính dẻo được gọi là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b13_p1_c1" value="A" onchange="playBriskSound()"> <strong>A.</strong> Cao su.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c1" value="B" onchange="playBriskSound()"> <strong>B.</strong> Tơ.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c1" value="C" onchange="playBriskSound()"> <strong>C.</strong> Chất dẻo.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c1" value="D" onchange="playBriskSound()"> <strong>D.</strong> Keo dán.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b13_p1_c2">
+      <div class="q-title"><strong>Câu 2</strong> [NB]: Vật liệu polymer nào sau đây được ứng dụng để sản xuất thủy tinh hữu cơ làm kính máy bay, kính bảo hộ?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b13_p1_c2" value="A" onchange="playBriskSound()"> <strong>A.</strong> Polyethylene (PE).</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c2" value="B" onchange="playBriskSound()"> <strong>B.</strong> Poly(methyl methacrylate).</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c2" value="C" onchange="playBriskSound()"> <strong>C.</strong> Poly(vinyl chloride) (PVC).</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c2" value="D" onchange="playBriskSound()"> <strong>D.</strong> Polystyrene (PS).</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b13_p1_c3">
+      <div class="q-title"><strong>Câu 3</strong> [NB]: Thành phần của vật liệu composite gồm hai phần chính là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b13_p1_c3" value="A" onchange="playBriskSound()"> <strong>A.</strong> Chất dẻo và chất màu.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c3" value="B" onchange="playBriskSound()"> <strong>B.</strong> Vật liệu cốt và vật liệu nền.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c3" value="C" onchange="playBriskSound()"> <strong>C.</strong> Cao su và lưu huỳnh.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c3" value="D" onchange="playBriskSound()"> <strong>D.</strong> Tơ và keo dán.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b13_p1_c4">
+      <div class="q-title"><strong>Câu 4</strong> [NB]: Loại tơ nào sau đây có nguồn gốc từ tự nhiên?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b13_p1_c4" value="A" onchange="playBriskSound()"> <strong>A.</strong> Tơ nylon-6,6.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c4" value="B" onchange="playBriskSound()"> <strong>B.</strong> Tơ tằm.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c4" value="C" onchange="playBriskSound()"> <strong>C.</strong> Tơ visco.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c4" value="D" onchange="playBriskSound()"> <strong>D.</strong> Tơ nitron.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b13_p1_c5">
+      <div class="q-title"><strong>Câu 5</strong> [NB]: Tơ visco và tơ cellulose acetate thuộc nhóm tơ nào?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b13_p1_c5" value="A" onchange="playBriskSound()"> <strong>A.</strong> Tơ tự nhiên.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c5" value="B" onchange="playBriskSound()"> <strong>B.</strong> Tơ tổng hợp.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c5" value="C" onchange="playBriskSound()"> <strong>C.</strong> Tơ bán tổng hợp (tơ nhân tạo).</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c5" value="D" onchange="playBriskSound()"> <strong>D.</strong> Tơ polyamide.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b13_p1_c6">
+      <div class="q-title"><strong>Câu 6</strong> [NB]: Cao su tự nhiên được khai thác chính từ mủ của loại cây nào?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b13_p1_c6" value="A" onchange="playBriskSound()"> <strong>A.</strong> Cây thông.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c6" value="B" onchange="playBriskSound()"> <strong>B.</strong> Cây cao su (Hevea brasiliensis).</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c6" value="C" onchange="playBriskSound()"> <strong>C.</strong> Cây keo.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c6" value="D" onchange="playBriskSound()"> <strong>D.</strong> Cây bạch đàn.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b13_p1_c7">
+      <div class="q-title"><strong>Câu 7</strong> [NB]: Các mắt xích isoprene trong cấu tạo của cao su tự nhiên đều ở dạng cấu hình nào?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b13_p1_c7" value="A" onchange="playBriskSound()"> <strong>A.</strong> Dạng trans.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c7" value="B" onchange="playBriskSound()"> <strong>B.</strong> Dạng cis.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c7" value="C" onchange="playBriskSound()"> <strong>C.</strong> Dạng vòng.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c7" value="D" onchange="playBriskSound()"> <strong>D.</strong> Dạng nhánh.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b13_p1_c8">
+      <div class="q-title"><strong>Câu 8</strong> [NB]: Loại keo dán nào được điều chế bằng phản ứng trùng ngưng giữa urea và formaldehyde?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b13_p1_c8" value="A" onchange="playBriskSound()"> <strong>A.</strong> Nhựa vá săm.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c8" value="B" onchange="playBriskSound()"> <strong>B.</strong> Keo dán epoxy.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c8" value="C" onchange="playBriskSound()"> <strong>C.</strong> Keo dán poly(urea-formaldehyde).</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c8" value="D" onchange="playBriskSound()"> <strong>D.</strong> Keo dán silicone.</label>
+      </div>
+    </div>
+
+    <div class="sub-level-header">B. Mức độ Thông hiểu (6 câu: Câu 9 đến Câu 14)</div>
+
+    <div class="question-card" id="card_b13_p1_c9">
+      <div class="q-title"><strong>Câu 9</strong> [TH]: Polymer nào sau đây thường được dùng để sản xuất hộp xốp, bao gói thực phẩm và vật liệu cách nhiệt?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b13_p1_c9" value="A" onchange="playBriskSound()"> <strong>A.</strong> PE.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c9" value="B" onchange="playBriskSound()"> <strong>B.</strong> PP.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c9" value="C" onchange="playBriskSound()"> <strong>C.</strong> PS (Polystyrene).</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c9" value="D" onchange="playBriskSound()"> <strong>D.</strong> PVC.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b13_p1_c10">
+      <div class="q-title"><strong>Câu 10</strong> [TH]: Loại tơ nào sau đây được dệt từ monomer acrylonitrile (vinyl cyanide) và có khả năng giữ nhiệt tốt nên dùng làm quần áo ấm?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b13_p1_c10" value="A" onchange="playBriskSound()"> <strong>A.</strong> Tơ capron.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c10" value="B" onchange="playBriskSound()"> <strong>B.</strong> Tơ nitron (olon).</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c10" value="C" onchange="playBriskSound()"> <strong>C.</strong> Tơ nylon-6,6.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c10" value="D" onchange="playBriskSound()"> <strong>D.</strong> Tơ visco.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b13_p1_c11">
+      <div class="q-title"><strong>Câu 11</strong> [TH]: Quá trình lưu hóa cao su bằng đun nóng với lưu huỳnh làm tăng độ bền, tính đàn hồi và khả năng chịu nhiệt là do tạo ra:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b13_p1_c11" value="A" onchange="playBriskSound()"> <strong>A.</strong> Mạch nhánh ngắn.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c11" value="B" onchange="playBriskSound()"> <strong>B.</strong> Mạch mạng lưới không gian với cầu nối disulfide.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c11" value="C" onchange="playBriskSound()"> <strong>C.</strong> Phân tử khối nhỏ hơn.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c11" value="D" onchange="playBriskSound()"> <strong>D.</strong> Liên kết ion giữa các chuỗi.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b13_p1_c12">
+      <div class="q-title"><strong>Câu 12</strong> [TH]: Vật liệu composite cốt sợi thủy tinh thường được ứng dụng để sản xuất:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b13_p1_c12" value="A" onchange="playBriskSound()"> <strong>A.</strong> Hộp xốp đựng cơm.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c12" value="B" onchange="playBriskSound()"> <strong>B.</strong> Thân vỏ máy bay, tàu thuyền, bồn chứa.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c12" value="C" onchange="playBriskSound()"> <strong>C.</strong> Quần áo may mặc ấm.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c12" value="D" onchange="playBriskSound()"> <strong>D.</strong> Khung kính đeo mắt.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b13_p1_c13">
+      <div class="q-title"><strong>Câu 13</strong> [TH]: Cao su buna-S là sản phẩm trùng hợp giữa buta-1,3-diene với monomer nào?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b13_p1_c13" value="A" onchange="playBriskSound()"> <strong>A.</strong> Acrylonitrile.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c13" value="B" onchange="playBriskSound()"> <strong>B.</strong> Styrene.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c13" value="C" onchange="playBriskSound()"> <strong>C.</strong> Vinyl chloride.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c13" value="D" onchange="playBriskSound()"> <strong>D.</strong> Isoprene.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b13_p1_c14">
+      <div class="q-title"><strong>Câu 14</strong> [TH]: Keo dán epoxy gồm hai thành phần chính là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b13_p1_c14" value="A" onchange="playBriskSound()"> <strong>A.</strong> Cao su và xăng.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c14" value="B" onchange="playBriskSound()"> <strong>B.</strong> Hợp chất chứa hai nhóm epoxy và chất đóng rắn là các amine.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c14" value="C" onchange="playBriskSound()"> <strong>C.</strong> Urea và formaldehyde.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c14" value="D" onchange="playBriskSound()"> <strong>D.</strong> Cellulose và acetic anhydride.</label>
+      </div>
+    </div>
+
+    <div class="sub-level-header">C. Mức độ Vận dụng (4 câu: Câu 15 đến Câu 18)</div>
+
+    <div class="question-card" id="card_b13_p1_c15">
+      <div class="q-title"><strong>Câu 15</strong> [VD]: Để làm ống cấp thoát nước, ván nhựa, vỏ cáp điện, người ta thường ưu tiên sử dụng loại chất dẻo nào?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b13_p1_c15" value="A" onchange="playBriskSound()"> <strong>A.</strong> Polyethylene (PE).</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c15" value="B" onchange="playBriskSound()"> <strong>B.</strong> Poly(vinyl chloride) (PVC).</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c15" value="C" onchange="playBriskSound()"> <strong>C.</strong> Polystyrene (PS).</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c15" value="D" onchange="playBriskSound()"> <strong>D.</strong> Poly(methyl methacrylate).</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b13_p1_c16">
+      <div class="q-title"><strong>Câu 16</strong> [VD]: Tơ nylon-6,6 thuộc loại tơ polyamide có đặc tính dai, mềm, ít thấm nước, được tổng hợp từ hai monomer là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b13_p1_c16" value="A" onchange="playBriskSound()"> <strong>A.</strong> Acrylonitrile và vinyl chloride.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c16" value="B" onchange="playBriskSound()"> <strong>B.</strong> Hexamethylenediamine và adipic acid.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c16" value="C" onchange="playBriskSound()"> <strong>C.</strong> Caprolactam và formaldehyde.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c16" value="D" onchange="playBriskSound()"> <strong>D.</strong> Phenol và formaldehyde.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b13_p1_c17">
+      <div class="q-title"><strong>Câu 17</strong> [VD]: Cho các loại tơ: sợi bông, tơ tằm, tơ visco, tơ nylon-6,6, tơ nitron. Số tơ thuộc nhóm tơ tổng hợp là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b13_p1_c17" value="A" onchange="playBriskSound()"> <strong>A.</strong> 2 (Tơ nylon-6,6, tơ nitron).</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c17" value="B" onchange="playBriskSound()"> <strong>B.</strong> 3.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c17" value="C" onchange="playBriskSound()"> <strong>C.</strong> 4.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c17" value="D" onchange="playBriskSound()"> <strong>D.</strong> 1.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b13_p1_c18">
+      <div class="q-title"><strong>Câu 18</strong> [VD]: Nhựa vá săm xe là một loại keo dán dạng dung dịch keo được tạo thành do:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b13_p1_c18" value="A" onchange="playBriskSound()"> <strong>A.</strong> Trùng ngưng urea với formaldehyde.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c18" value="B" onchange="playBriskSound()"> <strong>B.</strong> Hòa tan cao su trong dung môi hữu cơ (xăng, toluene...).</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c18" value="C" onchange="playBriskSound()"> <strong>C.</strong> Trùng hợp methyl methacrylate.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c18" value="D" onchange="playBriskSound()"> <strong>D.</strong> Lưu hóa cao su bằng lưu huỳnh.</label>
+      </div>
+    </div>
+
+    <div class="sub-level-header">D. Mức độ Vận dụng cao (2 câu: Câu 19 đến Câu 20)</div>
+
+    <div class="question-card" id="card_b13_p1_c19">
+      <div class="q-title"><strong>Câu 19</strong> [VDC]: Trùng hợp buta-1,3-diene thu được cao su buna. Nếu trùng hợp $54\text{ kg}$ buta-1,3-diene thu được $43,2\text{ kg}$ cao su buna. Hiệu suất của phản ứng trùng hợp là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b13_p1_c19" value="A" onchange="playBriskSound()"> <strong>A.</strong> $70\%$.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c19" value="B" onchange="playBriskSound()"> <strong>B.</strong> $80\%$.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c19" value="C" onchange="playBriskSound()"> <strong>C.</strong> $85\%$.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c19" value="D" onchange="playBriskSound()"> <strong>D.</strong> $90\%$.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b13_p1_c20">
+      <div class="q-title"><strong>Câu 20</strong> [VDC]: Phân tích rác thải nhựa tiêu dùng cho thấy sự tích tụ nguy hại lâu dài. Nguyên nhân chính khiến chất dẻo gây ô nhiễm môi trường suy thoái đất và nguồn nước là do:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b13_p1_c20" value="A" onchange="playBriskSound()"> <strong>A.</strong> Chất dẻo có chứa liên kết ion kém bền.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c20" value="B" onchange="playBriskSound()"> <strong>B.</strong> Rác thải nhựa rất khó phân hủy sinh học tự nhiên (cần hàng trăm năm).</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c20" value="C" onchange="playBriskSound()"> <strong>C.</strong> Chất dẻo dễ bị tan hoàn toàn trong nước mưa.</label>
+        <label class="opt-label"><input type="radio" name="b13_p1_c20" value="D" onchange="playBriskSound()"> <strong>D.</strong> Chất dẻo bị phân hủy quá nhanh thành chất độc.</label>
+      </div>
+    </div>
+
+    <!-- BÀI 13: ĐÚNG/SAI -->
+    <div class="part-header">PHẦN 2: TRẮC NGHIỆM ĐÚNG/SAI (5 CÂU)</div>
+
+    <div class="question-card" id="card_b13_p2_c1">
+      <div class="q-title"><strong>Câu 1</strong> [NB]: Xét các ứng dụng thực tế của một số chất dẻo thông dụng:</div>
+      <table class="tf-table">
+        <tr><th>Ý</th><th>Nội dung</th><th>Đúng</th><th>Sai</th></tr>
+        <tr><td>a</td><td>PE dùng sản xuất túi nylon, bao gói, màng bọc thực phẩm.</td>
+          <td><input type="radio" name="b13_p2_c1_a" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b13_p2_c1_a" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>b</td><td>PVC dùng làm vỏ cáp điện, ống nước, khung cửa.</td>
+          <td><input type="radio" name="b13_p2_c1_b" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b13_p2_c1_b" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>c</td><td>Poly(methyl methacrylate) dùng làm thủy tinh hữu cơ.</td>
+          <td><input type="radio" name="b13_p2_c1_c" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b13_p2_c1_c" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>d</td><td>PS chỉ được dùng làm chất dẻo chịu nhiệt cao trong lò vi sóng.</td>
+          <td><input type="radio" name="b13_p2_c1_d" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b13_p2_c1_d" value="S" onchange="playBriskSound()"></td></tr>
+      </table>
+    </div>
+
+    <div class="question-card" id="card_b13_p2_c2">
+      <div class="q-title"><strong>Câu 2</strong> [NB]: Xét đặc điểm cấu tạo và phân loại tơ:</div>
+      <table class="tf-table">
+        <tr><th>Ý</th><th>Nội dung</th><th>Đúng</th><th>Sai</th></tr>
+        <tr><td>a</td><td>Tơ có dạng sợi mảnh, mạch không phân nhánh và xếp song song.</td>
+          <td><input type="radio" name="b13_p2_c2_a" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b13_p2_c2_a" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>b</td><td>Tơ tằm và len có thành phần chính là protein.</td>
+          <td><input type="radio" name="b13_p2_c2_b" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b13_p2_c2_b" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>c</td><td>Sợi bông có thành phần chủ yếu là cellulose.</td>
+          <td><input type="radio" name="b13_p2_c2_c" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b13_p2_c2_c" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>d</td><td>Tơ visco thuộc loại tơ tổng hợp hoàn toàn.</td>
+          <td><input type="radio" name="b13_p2_c2_d" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b13_p2_c2_d" value="S" onchange="playBriskSound()"></td></tr>
+      </table>
+    </div>
+
+    <div class="question-card" id="card_b13_p2_c3">
+      <div class="q-title"><strong>Câu 3</strong> [TH]: Xét đặc tính của Cao su tự nhiên và cao su lưu hóa:</div>
+      <table class="tf-table">
+        <tr><th>Ý</th><th>Nội dung</th><th>Đúng</th><th>Sai</th></tr>
+        <tr><td>a</td><td>Cao su tự nhiên lấy từ mủ cây cao su có mắt xích isoprene dạng cis.</td>
+          <td><input type="radio" name="b13_p2_c3_a" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b13_p2_c3_a" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>b</td><td>Cao su tự nhiên tan được trong xăng, benzene.</td>
+          <td><input type="radio" name="b13_p2_c3_b" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b13_p2_c3_a" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>c</td><td>Lưu hóa cao su bằng lưu huỳnh giúp tạo cầu nối disulfide.</td>
+          <td><input type="radio" name="b13_p2_c3_c" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b13_p2_c3_c" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>d</td><td>Cao su lưu hóa có độ bền và tính đàn hồi kém hơn cao su chưa lưu hóa.</td>
+          <td><input type="radio" name="b13_p2_c3_d" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b13_p2_c3_d" value="S" onchange="playBriskSound()"></td></tr>
+      </table>
+    </div>
+
+    <div class="question-card" id="card_b13_p2_c4">
+      <div class="q-title"><strong>Câu 4</strong> [VD]: Xét thành phần và tính chất của Vật liệu Composite:</div>
+      <table class="tf-table">
+        <tr><th>Ý</th><th>Nội dung</th><th>Đúng</th><th>Sai</th></tr>
+        <tr><td>a</td><td>Composite gồm hai phần chính: vật liệu cốt và vật liệu nền.</td>
+          <td><input type="radio" name="b13_p2_c4_a" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b13_p2_c4_a" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>b</td><td>Vật liệu cốt đảm bảo đặc tính cơ học cần thiết (sợi thủy tinh, carbon...).</td>
+          <td><input type="radio" name="b13_p2_c4_b" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b13_p2_c4_b" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>c</td><td>Vật liệu nền liên kết các thành phần cốt tạo tính thống nhất.</td>
+          <td><input type="radio" name="b13_p2_c4_c" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b13_p2_c4_c" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>d</td><td>Composite có tính chất cơ học kém hơn so với từng vật liệu thành phần riêng rẽ.</td>
+          <td><input type="radio" name="b13_p2_c4_d" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b13_p2_c4_d" value="S" onchange="playBriskSound()"></td></tr>
+      </table>
+    </div>
+
+    <div class="question-card" id="card_b13_p2_c5">
+      <div class="q-title"><strong>Câu 5</strong> [VDC]: Xét ứng dụng và tính chất các loại tơ tổng hợp:</div>
+      <table class="tf-table">
+        <tr><th>Ý</th><th>Nội dung</th><th>Đúng</th><th>Sai</th></tr>
+        <tr><td>a</td><td>Tơ nylon-6,6 được tổng hợp từ hexamethylenediamine và adipic acid.</td>
+          <td><input type="radio" name="b13_p2_c5_a" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b13_p2_c5_a" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>b</td><td>Tơ nitron (olon) được trùng hợp từ vinyl cyanide (acrylonitrile).</td>
+          <td><input type="radio" name="b13_p2_c5_b" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b13_p2_c5_b" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>c</td><td>Tơ capron có độ bền cao, chống mài mòn tốt.</td>
+          <td><input type="radio" name="b13_p2_c5_c" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b13_p2_c5_c" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>d</td><td>Tơ nitron không bền với nhiệt nên không thể dệt quần áo ấm.</td>
+          <td><input type="radio" name="b13_p2_c5_d" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b13_p2_c5_d" value="S" onchange="playBriskSound()"></td></tr>
+      </table>
+    </div>
+
+    <!-- BÀI 13: TRẢ LỜI NGẮN -->
+    <div class="part-header">PHẦN 3: CÂU TRẢ LỜI NGẮN (5 CÂU)</div>
+
+    <div class="question-card" id="card_b13_p3_c1">
+      <div class="q-title"><strong>Câu 1</strong> [NB]: Nêu tên gọi của vật liệu polymer có tính dẻo làm thành phần chính.</div>
+      <input type="text" class="short-input" name="b13_p3_c1" placeholder="Nhập câu trả lời..." oninput="playTypingBrisk()">
+    </div>
+
+    <div class="question-card" id="card_b13_p3_c2">
+      <div class="q-title"><strong>Câu 2</strong> [NB]: Tên loại tơ tự nhiên lấy từ kén tằm có cấu trúc chuỗi protein là gì?</div>
+      <input type="text" class="short-input" name="b13_p3_c2" placeholder="Nhập câu trả lời..." oninput="playTypingBrisk()">
+    </div>
+
+    <div class="question-card" id="card_b13_p3_c3">
+      <div class="q-title"><strong>Câu 3</strong> [TH]: Kể tên hợp chất được đun nóng với cao su tự nhiên trong quá trình lưu hóa.</div>
+      <input type="text" class="short-input" name="b13_p3_c3" placeholder="Nhập câu trả lời..." oninput="playTypingBrisk()">
+    </div>
+
+    <div class="question-card" id="card_b13_p3_c4">
+      <div class="q-title"><strong>Câu 4</strong> [VD]: Nêu tên monomer được sử dụng để trùng hợp tạo ra tơ nitron (olon).</div>
+      <input type="text" class="short-input" name="b13_p3_c4" placeholder="Nhập câu trả lời..." oninput="playTypingBrisk()">
+    </div>
+
+    <div class="question-card" id="card_b13_p3_c5">
+      <div class="q-title"><strong>Câu 5</strong> [VDC]: Tính khối lượng tơ nitron (kg) thu được từ $106\text{ kg}$ acrylonitrile nếu hiệu suất phản ứng trùng hợp đạt $90\%$.</div>
+      <input type="text" class="short-input" name="b13_p3_c5" placeholder="Nhập kết quả..." oninput="playTypingBrisk()">
+    </div>
+
+
+    <!-- ========================================================
+         BÀI 14: ÔN TẬP CHƯƠNG 4
+         ======================================================== -->
+    <div class="lesson-header">PHIẾU BÀI TẬP BÀI 14: ÔN TẬP CHƯƠNG 4 (POLYMER VÀ VẬT LIỆU POLYMER)</div>
+    
+    <div class="part-header">PHẦN 1: TRẮC NGHIỆM 4 LỰA CHỌN (20 CÂU)</div>
+
+    <div class="sub-level-header">A. Mức độ Nhận biết (8 câu: Câu 1 đến Câu 8)</div>
+
+    <div class="question-card" id="card_b14_p1_c1">
+      <div class="q-title"><strong>Câu 1</strong> [NB]: Nhóm vật liệu polymer nào sau đây có tính dẻo đặc trưng?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b14_p1_c1" value="A" onchange="playBriskSound()"> <strong>A.</strong> Cao su.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c1" value="B" onchange="playBriskSound()"> <strong>B.</strong> Chất dẻo.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c1" value="C" onchange="playBriskSound()"> <strong>C.</strong> Tơ.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c1" value="D" onchange="playBriskSound()"> <strong>D.</strong> Keo dán.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b14_p1_c2">
+      <div class="q-title"><strong>Câu 2</strong> [NB]: Tơ tổng hợp nào sau đây được chế tạo từ phản ứng trùng hợp vinyl cyanide?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b14_p1_c2" value="A" onchange="playBriskSound()"> <strong>A.</strong> Tơ capron.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c2" value="B" onchange="playBriskSound()"> <strong>B.</strong> Tơ nitron.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c2" value="C" onchange="playBriskSound()"> <strong>C.</strong> Tơ nylon-6,6.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c2" value="D" onchange="playBriskSound()"> <strong>D.</strong> Tơ visco.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b14_p1_c3">
+      <div class="q-title"><strong>Câu 3</strong> [NB]: Loại vật liệu polymer nào có khả năng kết dính bề mặt hai vật liệu rắn mà không làm biến đổi bản chất các vật liệu đó?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b14_p1_c3" value="A" onchange="playBriskSound()"> <strong>A.</strong> Chất dẻo.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c3" value="B" onchange="playBriskSound()"> <strong>B.</strong> Keo dán.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c3" value="C" onchange="playBriskSound()"> <strong>C.</strong> Cao su.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c3" value="D" onchange="playBriskSound()"> <strong>D.</strong> Composite.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b14_p1_c4">
+      <div class="q-title"><strong>Câu 4</strong> [NB]: Phản ứng xà phòng hóa poly(vinyl acetate) tạo poly(vinyl alcohol) thuộc loại phản ứng biến đổi mạch polymer nào?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b14_p1_c4" value="A" onchange="playBriskSound()"> <strong>A.</strong> Phản ứng cắt mạch.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c4" value="B" onchange="playBriskSound()"> <strong>B.</strong> Phản ứng giữ nguyên mạch.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c4" value="C" onchange="playBriskSound()"> <strong>C.</strong> Phản ứng tăng mạch.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c4" value="D" onchange="playBriskSound()"> <strong>D.</strong> Phản ứng trùng ngưng.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b14_p1_c5">
+      <div class="q-title"><strong>Câu 5</strong> [NB]: Vật liệu composite được cấu tạo bởi hai thành phần cơ bản là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b14_p1_c5" value="A" onchange="playBriskSound()"> <strong>A.</strong> Mắt xích và monomer.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c5" value="B" onchange="playBriskSound()"> <strong>B.</strong> Vật liệu nền và vật liệu cốt.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c5" value="C" onchange="playBriskSound()"> <strong>C.</strong> Chất dẻo và tơ.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c5" value="D" onchange="playBriskSound()"> <strong>D.</strong> Cao su và lưu huỳnh.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b14_p1_c6">
+      <div class="q-title"><strong>Câu 6</strong> [NB]: Phản ứng thủy phân polyamide trong môi trường acid là ví dụ về loại phản ứng nào của polymer?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b14_p1_c6" value="A" onchange="playBriskSound()"> <strong>A.</strong> Phản ứng tăng mạch.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c6" value="B" onchange="playBriskSound()"> <strong>B.</strong> Phản ứng cắt mạch.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c6" value="C" onchange="playBriskSound()"> <strong>C.</strong> Phản ứng giữ nguyên mạch.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c6" value="D" onchange="playBriskSound()"> <strong>D.</strong> Phản ứng trùng hợp.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b14_p1_c7">
+      <div class="q-title"><strong>Câu 7</strong> [NB]: Nhóm tơ nào sau đây là tơ bán tổng hợp (tơ nhân tạo)?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b14_p1_c7" value="A" onchange="playBriskSound()"> <strong>A.</strong> Sợi bông, tơ tằm.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c7" value="B" onchange="playBriskSound()"> <strong>B.</strong> Tơ visco, tơ cellulose acetate.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c7" value="C" onchange="playBriskSound()"> <strong>C.</strong> Tơ nylon-6,6, tơ nitron.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c7" value="D" onchange="playBriskSound()"> <strong>D.</strong> Tơ capron, tơ nhện.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b14_p1_c8">
+      <div class="q-title"><strong>Câu 8</strong> [NB]: Đun nóng cao su với lưu huỳnh tạo cầu nối disulfide thuộc loại phản ứng biến đổi mạch polymer nào?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b14_p1_c8" value="A" onchange="playBriskSound()"> <strong>A.</strong> Phản ứng cắt mạch.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c8" value="B" onchange="playBriskSound()"> <strong>B.</strong> Phản ứng tăng mạch.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c8" value="C" onchange="playBriskSound()"> <strong>C.</strong> Phản ứng giữ nguyên mạch.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c8" value="D" onchange="playBriskSound()"> <strong>D.</strong> Phản ứng phân hủy.</label>
+      </div>
+    </div>
+
+    <div class="sub-level-header">B. Mức độ Thông hiểu (6 câu: Câu 9 đến Câu 14)</div>
+
+    <div class="question-card" id="card_b14_p1_c9">
+      <div class="q-title"><strong>Câu 9</strong> [TH]: Cho các polymer: PE, PP, PVC, PS, Poly(phenol formaldehyde). Nhóm polymer tổng hợp bằng phương pháp trùng hợp là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b14_p1_c9" value="A" onchange="playBriskSound()"> <strong>A.</strong> PE, PP, PVC, PS.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c9" value="B" onchange="playBriskSound()"> <strong>B.</strong> Chỉ có PE và PP.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c9" value="C" onchange="playBriskSound()"> <strong>C.</strong> PE, PP và Poly(phenol formaldehyde).</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c9" value="D" onchange="playBriskSound()"> <strong>D.</strong> Tất cả các polymer trên.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b14_p1_c10">
+      <div class="q-title"><strong>Câu 10</strong> [TH]: Khẳng định nào sau đây đúng về tính chất của tơ?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b14_p1_c10" value="A" onchange="playBriskSound()"> <strong>A.</strong> Mọi loại tơ đều được điều chế bằng phản ứng trùng ngưng.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c10" value="B" onchange="playBriskSound()"> <strong>B.</strong> Tơ là các vật liệu polymer dạng sợi mảnh, dai, bền, mạch không phân nhánh.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c10" value="C" onchange="playBriskSound()"> <strong>C.</strong> Tơ tự nhiên không bị phân hủy bởi sinh học.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c10" value="D" onchange="playBriskSound()"> <strong>D.</strong> Tơ tổng hợp không thể kéo sợi.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b14_p1_c11">
+      <div class="q-title"><strong>Câu 11</strong> [TH]: Để thu được keo dán poly(urea-formaldehyde), người ta thực hiện phản ứng trùng ngưng giữa hai chất nào?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b14_p1_c11" value="A" onchange="playBriskSound()"> <strong>A.</strong> Formaldehyde và phenol.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c11" value="B" onchange="playBriskSound()"> <strong>B.</strong> Urea và formaldehyde.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c11" value="C" onchange="playBriskSound()"> <strong>C.</strong> Adipic acid và hexamethylenediamine.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c11" value="D" onchange="playBriskSound()"> <strong>D.</strong> Ethylene và vinyl chloride.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b14_p1_c12">
+      <div class="q-title"><strong>Câu 12</strong> [TH]: Khi so sánh cao su tự nhiên và cao su lưu hóa, cao su lưu hóa có điểm ưu việt hơn là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b14_p1_c12" value="A" onchange="playBriskSound()"> <strong>A.</strong> Dễ bị tan hơn trong xăng.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c12" value="B" onchange="playBriskSound()"> <strong>B.</strong> Độ bền, tính đàn hồi và khả năng chịu nhiệt cao hơn.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c12" value="C" onchange="playBriskSound()"> <strong>C.</strong> Giảm khối lượng phân tử.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c12" value="D" onchange="playBriskSound()"> <strong>D.</strong> Mạch không liên kết với nhau.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b14_p1_c13">
+      <div class="q-title"><strong>Câu 13</strong> [TH]: Monomer dùng để sản xuất chất dẻo PE (Polyethylene) bằng phản ứng trùng hợp là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b14_p1_c13" value="A" onchange="playBriskSound()"> <strong>A.</strong> Vinyl chloride.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c13" value="B" onchange="playBriskSound()"> <strong>B.</strong> Ethylene ($\text{CH}_2=\text{CH}_2$).</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c13" value="C" onchange="playBriskSound()"> <strong>C.</strong> Propylene.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c13" value="D" onchange="playBriskSound()"> <strong>D.</strong> Styrene.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b14_p1_c14">
+      <div class="q-title"><strong>Câu 14</strong> [TH]: Polymer nào sau đây thuộc loại polymer thiên nhiên (có sẵn trong tự nhiên)?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b14_p1_c14" value="A" onchange="playBriskSound()"> <strong>A.</strong> Polyethylene.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c14" value="B" onchange="playBriskSound()"> <strong>B.</strong> Cellulose.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c14" value="C" onchange="playBriskSound()"> <strong>C.</strong> Nylon-6,6.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c14" value="D" onchange="playBriskSound()"> <strong>D.</strong> PVC.</label>
+      </div>
+    </div>
+
+    <div class="sub-level-header">C. Mức độ Vận dụng (4 câu: Câu 15 đến Câu 18)</div>
+
+    <div class="question-card" id="card_b14_p1_c15">
+      <div class="q-title"><strong>Câu 15</strong> [VD]: Cho dãy các vật liệu: tơ tằm, tơ nylon-6,6, tơ visco, tơ nitron, tơ capron. Số vật liệu thuộc loại tơ tổng hợp là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b14_p1_c15" value="A" onchange="playBriskSound()"> <strong>A.</strong> 2.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c15" value="B" onchange="playBriskSound()"> <strong>B.</strong> 3 (Tơ nylon-6,6, tơ nitron, tơ capron).</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c15" value="C" onchange="playBriskSound()"> <strong>C.</strong> 4.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c15" value="D" onchange="playBriskSound()"> <strong>D.</strong> 1.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b14_p1_c16">
+      <div class="q-title"><strong>Câu 16</strong> [VD]: Sắp xếp đúng các polymer sau vào nhóm phương pháp tổng hợp tương ứng:<br>
+        • Nhóm 1 (Trùng hợp): PE, PVC, Cao su buna, Tơ nitron.<br>
+        • Nhóm 2 (Trùng ngưng): Nylon-6,6, Poly(phenol formaldehyde). Phát biểu này là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b14_p1_c16" value="A" onchange="playBriskSound()"> <strong>A.</strong> Đúng.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c16" value="B" onchange="playBriskSound()"> <strong>B.</strong> Sai vì Nylon-6,6 là trùng hợp.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c16" value="C" onchange="playBriskSound()"> <strong>C.</strong> Sai vì PE là trùng ngưng.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c16" value="D" onchange="playBriskSound()"> <strong>D.</strong> Sai vì Tơ nitron là trùng ngưng.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b14_p1_c17">
+      <div class="q-title"><strong>Câu 17</strong> [VD]: Để chế tạo thân xe đua, khung xe đạp nhẹ và siêu bền, người ta sử dụng loại vật liệu nào?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b14_p1_c17" value="A" onchange="playBriskSound()"> <strong>A.</strong> Chất dẻo PE đơn thuần.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c17" value="B" onchange="playBriskSound()"> <strong>B.</strong> Vật liệu composite cốt sợi carbon.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c17" value="C" onchange="playBriskSound()"> <strong>C.</strong> Cao su lưu hóa chưa chế biến.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c17" value="D" onchange="playBriskSound()"> <strong>D.</strong> Tơ tằm tự nhiên.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b14_p1_c18">
+      <div class="q-title"><strong>Câu 18</strong> [VD]: Thủy phân hoàn toàn 1 mol nylon-6,6 trong môi trường acid thu được các monomer ban đầu là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b14_p1_c18" value="A" onchange="playBriskSound()"> <strong>A.</strong> Acrylonitrile và vinyl chloride.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c18" value="B" onchange="playBriskSound()"> <strong>B.</strong> Adipic acid và hexamethylenediamine.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c18" value="C" onchange="playBriskSound()"> <strong>C.</strong> Formaldehyde và urea.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c18" value="D" onchange="playBriskSound()"> <strong>D.</strong> Glucose và fructose.</label>
+      </div>
+    </div>
+
+    <div class="sub-level-header">D. Mức độ Vận dụng cao (2 câu: Câu 19 đến Câu 20)</div>
+
+    <div class="question-card" id="card_b14_p1_c19">
+      <div class="q-title"><strong>Câu 19</strong> [VDC]: Trùng ngưng $14,6\text{ kg}$ adipic acid và $11,6\text{ kg}$ hexamethylenediamine thu được $22,6\text{ kg}$ tơ nylon-6,6 và $m\text{ kg}$ nước. Khối lượng $m$ nước giải phóng là:</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b14_p1_c19" value="A" onchange="playBriskSound()"> <strong>A.</strong> $3,6\text{ kg}$.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c19" value="B" onchange="playBriskSound()"> <strong>B.</strong> $1,8\text{ kg}$.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c19" value="C" onchange="playBriskSound()"> <strong>C.</strong> $2,0\text{ kg}$.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c19" value="D" onchange="playBriskSound()"> <strong>D.</strong> $4,0\text{ kg}$.</label>
+      </div>
+    </div>
+
+    <div class="question-card" id="card_b14_p1_c20">
+      <div class="q-title"><strong>Câu 20</strong> [VDC]: Phân tích sơ đồ chuyển hóa: $\text{Cellulose} \xrightarrow{\text{phản ứng hóa học}} \text{Tơ X}$. Tơ X thu được thuộc nhóm tơ nào và ví dụ điển hình là tơ nào?</div>
+      <div class="options">
+        <label class="opt-label"><input type="radio" name="b14_p1_c20" value="A" onchange="playBriskSound()"> <strong>A.</strong> Tơ tự nhiên - Sợi bông.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c20" value="B" onchange="playBriskSound()"> <strong>B.</strong> Tơ bán tổng hợp (nhân tạo) - Tơ visco hoặc tơ cellulose acetate.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c20" value="C" onchange="playBriskSound()"> <strong>C.</strong> Tơ tổng hợp - Tơ nylon-6,6.</label>
+        <label class="opt-label"><input type="radio" name="b14_p1_c20" value="D" onchange="playBriskSound()"> <strong>D.</strong> Tơ tổng hợp - Tơ nitron.</label>
+      </div>
+    </div>
+
+    <!-- BÀI 14: ĐÚNG/SAI -->
+    <div class="part-header">PHẦN 2: TRẮC NGHIỆM ĐÚNG/SAI (5 CÂU)</div>
+
+    <div class="question-card" id="card_b14_p2_c1">
+      <div class="q-title"><strong>Câu 1</strong> [NB]: Xét các loại phản ứng đặc trưng của polymer:</div>
+      <table class="tf-table">
+        <tr><th>Ý</th><th>Nội dung</th><th>Đúng</th><th>Sai</th></tr>
+        <tr><td>a</td><td>Phản ứng cắt mạch phân cắt polymer thành các monomer hoặc đoạn mạch nhỏ hơn.</td>
+          <td><input type="radio" name="b14_p2_c1_a" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b14_p2_c1_a" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>b</td><td>Phản ứng tăng mạch nối các chuỗi polymer thành mạch dài hơn hoặc mạng lưới.</td>
+          <td><input type="radio" name="b14_p2_c1_b" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b14_p2_c1_b" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>c</td><td>Phản ứng giữ nguyên mạch xảy ra ở nhóm thế hoặc liên kết đôi mà không đổi chiều dài mạch.</td>
+          <td><input type="radio" name="b14_p2_c1_c" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b14_p2_c1_c" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>d</td><td>Mọi phản ứng hóa học của polymer đều làm giảm độ dài mạch polymer.</td>
+          <td><input type="radio" name="b14_p2_c1_d" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b14_p2_c1_d" value="S" onchange="playBriskSound()"></td></tr>
+      </table>
+    </div>
+
+    <div class="question-card" id="card_b14_p2_c2">
+      <div class="q-title"><strong>Câu 2</strong> [NB]: Xét các phân loại nhóm vật liệu polymer trong đời sống:</div>
+      <table class="tf-table">
+        <tr><th>Ý</th><th>Nội dung</th><th>Đúng</th><th>Sai</th></tr>
+        <tr><td>a</td><td>Chất dẻo có tính dẻo.</td>
+          <td><input type="radio" name="b14_p2_c2_a" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b14_p2_c2_a" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>b</td><td>Cao su có tính đàn hồi.</td>
+          <td><input type="radio" name="b14_p2_c2_b" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b14_p2_c2_b" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>c</td><td>Tơ có dạng sợi mảnh, dai, bền.</td>
+          <td><input type="radio" name="b14_p2_c2_c" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b14_p2_c2_c" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>d</td><td>Keo dán không có khả năng kết dính hai bề mặt vật liệu rắn.</td>
+          <td><input type="radio" name="b14_p2_c2_d" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b14_p2_c2_d" value="S" onchange="playBriskSound()"></td></tr>
+      </table>
+    </div>
+
+    <div class="question-card" id="card_b14_p2_c3">
+      <div class="q-title"><strong>Câu 3</strong> [TH]: Xét các phương pháp tổng hợp polymer:</div>
+      <table class="tf-table">
+        <tr><th>Ý</th><th>Nội dung</th><th>Đúng</th><th>Sai</th></tr>
+        <tr><td>a</td><td>Phản ứng trùng hợp kết hợp các monomer có liên kết đôi hoặc vòng kém bền.</td>
+          <td><input type="radio" name="b14_p2_c3_a" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b14_p2_c3_a" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>b</td><td>Phản ứng trùng ngưng kết hợp các monomer có ít nhất hai nhóm chức phản ứng.</td>
+          <td><input type="radio" name="b14_p2_c3_b" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b14_p2_c3_b" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>c</td><td>Phản ứng trùng ngưng luôn giải phóng các phân tử nhỏ như nước.</td>
+          <td><input type="radio" name="b14_p2_c3_c" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b14_p2_c3_c" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>d</td><td>Polyethylene (PE) được tổng hợp bằng phản ứng trùng ngưng.</td>
+          <td><input type="radio" name="b14_p2_c3_d" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b14_p2_c3_d" value="S" onchange="playBriskSound()"></td></tr>
+      </table>
+    </div>
+
+    <div class="question-card" id="card_b14_p2_c4">
+      <div class="q-title"><strong>Câu 4</strong> [VD]: Xét tính chất và ứng dụng của vật liệu Composite:</div>
+      <table class="tf-table">
+        <tr><th>Ý</th><th>Nội dung</th><th>Đúng</th><th>Sai</th></tr>
+        <tr><td>a</td><td>Composite gồm vật liệu nền và vật liệu cốt.</td>
+          <td><input type="radio" name="b14_p2_c4_a" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b14_p2_c4_a" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>b</td><td>Composite có tính chất cơ học vượt trội so với từng vật liệu thành phần.</td>
+          <td><input type="radio" name="b14_p2_c4_b" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b14_p2_c4_b" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>c</td><td>Vỏ máy bay, thân tàu thuyền thường làm bằng vật liệu composite.</td>
+          <td><input type="radio" name="b14_p2_c4_c" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b14_p2_c4_c" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>d</td><td>Composite chỉ chứa duy nhất một loại chất dẻo.</td>
+          <td><input type="radio" name="b14_p2_c4_d" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b14_p2_c4_d" value="S" onchange="playBriskSound()"></td></tr>
+      </table>
+    </div>
+
+    <div class="question-card" id="card_b14_p2_c5">
+      <div class="q-title"><strong>Câu 5</strong> [VDC]: Xét nguồn gốc và đặc điểm phân loại tơ:</div>
+      <table class="tf-table">
+        <tr><th>Ý</th><th>Nội dung</th><th>Đúng</th><th>Sai</th></tr>
+        <tr><td>a</td><td>Tơ tự nhiên có sẵn trong tự nhiên như sợi bông, len, tơ tằm.</td>
+          <td><input type="radio" name="b14_p2_c5_a" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b14_p2_c5_a" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>b</td><td>Tơ bán tổng hợp chế biến từ polymer tự nhiên bằng phương pháp hóa học.</td>
+          <td><input type="radio" name="b14_p2_c5_b" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b14_p2_c5_b" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>c</td><td>Tơ tổng hợp được chế tạo hoàn toàn từ polymer tổng hợp.</td>
+          <td><input type="radio" name="b14_p2_c5_c" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b14_p2_c5_c" value="S" onchange="playBriskSound()"></td></tr>
+        <tr><td>d</td><td>Tơ visco và tơ cellulose acetate thuộc nhóm tơ tổng hợp hoàn toàn.</td>
+          <td><input type="radio" name="b14_p2_c5_d" value="Đ" onchange="playBriskSound()"></td><td><input type="radio" name="b14_p2_c5_d" value="S" onchange="playBriskSound()"></td></tr>
+      </table>
+    </div>
+
+    <!-- BÀI 14: TRẢ LỜI NGẮN -->
+    <div class="part-header">PHẦN 3: CÂU TRẢ LỜI NGẮN (5 CÂU)</div>
+
+    <div class="question-card" id="card_b14_p3_c1">
+      <div class="q-title"><strong>Câu 1</strong> [NB]: Nêu tên gọi của đơn vị nhỏ phản ứng với nhau tạo nên polymer.</div>
+      <input type="text" class="short-input" name="b14_p3_c1" placeholder="Nhập câu trả lời..." oninput="playTypingBrisk()">
+    </div>
+
+    <div class="question-card" id="card_b14_p3_c2">
+      <div class="q-title"><strong>Câu 2</strong> [NB]: Kể tên loại vật liệu polymer có tính đàn hồi đặc trưng.</div>
+      <input type="text" class="short-input" name="b14_p3_c2" placeholder="Nhập câu trả lời..." oninput="playTypingBrisk()">
+    </div>
+
+    <div class="question-card" id="card_b14_p3_c3">
+      <div class="q-title"><strong>Câu 3</strong> [TH]: Phản ứng thủy phân polyamide thành các amino acid thuộc loại phản ứng biến đổi mạch polymer nào?</div>
+      <input type="text" class="short-input" name="b14_p3_c3" placeholder="Nhập câu trả lời..." oninput="playTypingBrisk()">
+    </div>
+
+    <div class="question-card" id="card_b14_p3_c4">
+      <div class="q-title"><strong>Câu 4</strong> [VD]: Kể tên 2 monomer dùng để điều chế keo dán poly(urea-formaldehyde).</div>
+      <input type="text" class="short-input" name="b14_p3_c4" placeholder="Nhập câu trả lời..." oninput="playTypingBrisk()">
+    </div>
+
+    <div class="question-card" id="card_b14_p3_c5">
+      <div class="q-title"><strong>Câu 5</strong> [VDC]: Tính tổng khối lượng (kg) monomer thu được khi nhiệt phân hoàn toàn $104\text{ kg}$ Polystyrene (PS) thành styrene.</div>
+      <input type="text" class="short-input" name="b14_p3_c5" placeholder="Nhập kết quả..." oninput="playTypingBrisk()">
+    </div>
+
+  </form>
+
+  <div class="alert-msg" id="alertMsg">Vui lòng điền đầy đủ thông tin học sinh và trả lời đầy đủ 100% tất cả các câu hỏi trước khi nộp bài!</div>
+
+  <div class="action-container">
+    <button type="button" class="btn btn-submit" onclick="submitQuiz()">Nộp bài</button>
+    <button type="button" class="btn btn-export" id="btnExport" onclick="exportToExcel()">Xuất file .xls</button>
+    <button type="button" class="btn btn-detail" id="btnDetail" onclick="toggleDetails()">Xem chi tiết</button>
+  </div>
+
+  <!-- Hộp hiển thị kết quả -->
+  <div class="result-box" id="resultBox">
+    <h2>KẾT QUẢ BÀI LÀM</h2>
+    <p id="studentDisplay" style="font-size: 1.15rem;"></p>
+    <h3 id="scoreDisplay" style="color: var(--primary-dark); font-size: 1.8rem; margin: 10px 0;"></h3>
+    <p id="correctDetailDisplay"></p>
+  </div>
+
+  <!-- Chi tiết đáp án và lời giải (Toggle) -->
+  <div class="detail-section" id="detailSection">
+    <div class="key-box">
+      <h3 style="margin-top:0; color: #b78103;">ĐÁP ÁN NGUYÊN BẢN TÀI LIỆU (100% ĐẦY ĐỦ CÁC CÂU)</h3>
+      
+      <p><strong>BÀI 12: ĐẠI CƯƠNG VỀ POLYMER</strong></p>
+      <p>• <em>Phần 1 (MCQ):</em> 1-B, 2-B, 3-A, 4-B, 5-B, 6-B, 7-B, 8-B, 9-B, 10-B, 11-B, 12-C, 13-B, 14-B, 15-B, 16-B, 17-B, 18-B, 19-B, 20-B.</p>
+      <p>• <em>Phần 2 (Đúng/Sai):</em> Câu 1: a-Đ, b-Đ, c-Đ, d-S | Câu 2: a-Đ, b-Đ, c-Đ, d-S | Câu 3: a-Đ, b-Đ, c-Đ, d-S | Câu 4: a-Đ, b-Đ, c-Đ, d-S | Câu 5: a-Đ, b-Đ, c-Đ, d-Đ.</p>
+      <p>• <em>Phần 3 (Trả lời ngắn):</em> 1: Polymer | 2: $\text{CH}_2=\text{CH}_2$ | 3: Cầu nối disulfide (-S-S-) | 4: Glucose | 5: $140.000\text{ amu}$.</p>
+      
+      <hr>
+      <p><strong>BÀI 13: VẬT LIỆU POLYMER</strong></p>
+      <p>• <em>Phần 1 (MCQ):</em> 1-C, 2-B, 3-B, 4-B, 5-C, 6-B, 7-B, 8-C, 9-C, 10-B, 11-B, 12-B, 13-B, 14-B, 15-B, 16-B, 17-A, 18-B, 19-B, 20-B.</p>
+      <p>• <em>Phần 2 (Đúng/Sai):</em> Câu 1: a-Đ, b-Đ, c-Đ, d-S | Câu 2: a-Đ, b-Đ, c-Đ, d-S | Câu 3: a-Đ, b-Đ, c-Đ, d-S | Câu 4: a-Đ, b-Đ, c-Đ, d-S | Câu 5: a-Đ, b-Đ, c-Đ, d-S.</p>
+      <p>• <em>Phần 3 (Trả lời ngắn):</em> 1: Chất dẻo | 2: Tơ tằm | 3: Lưu huỳnh | 4: Vinyl cyanide (hoặc acrylonitrile) | 5: $95,4\text{ kg}$.</p>
+
+      <hr>
+      <p><strong>BÀI 14: ÔN TẬP CHƯƠNG 4 (POLYMER VÀ VẬT LIỆU POLYMER)</strong></p>
+      <p>• <em>Phần 1 (MCQ):</em> 1-B, 2-B, 3-B, 4-B, 5-B, 6-B, 7-B, 8-B, 9-A, 10-B, 11-B, 12-B, 13-B, 14-B, 15-B, 16-A, 17-B, 18-B, 19-A, 20-B.</p>
+      <p>• <em>Phần 2 (Đúng/Sai):</em> Câu 1: a-Đ, b-Đ, c-Đ, d-S | Câu 2: a-Đ, b-Đ, c-Đ, d-S | Câu 3: a-Đ, b-Đ, c-Đ, d-S | Câu 4: a-Đ, b-Đ, c-Đ, d-S | Câu 5: a-Đ, b-Đ, c-Đ, d-S.</p>
+      <p>• <em>Phần 3 (Trả lời ngắn):</em> 1: Monomer | 2: Cao su | 3: Phản ứng cắt mạch polymer | 4: Urea và formaldehyde | 5: $104\text{ kg}$.</p>
+    </div>
+
+    <h3>GIẢI THÍCH CHI TIẾT TRỌNG TÂM CÁC CÂU BÀI TẬP VẬN DỤNG & TÍNH TOÁN</h3>
+    <div style="background:#f9f9f9; padding: 1
